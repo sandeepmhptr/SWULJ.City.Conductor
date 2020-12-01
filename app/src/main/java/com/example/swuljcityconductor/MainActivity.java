@@ -1,5 +1,6 @@
 package com.example.swuljcityconductor;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,7 +30,12 @@ public class MainActivity extends AppCompatActivity {
         imgButtonGenerateQrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"You download is resumed1",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(MainActivity.this,
+                        GenerateQrCodeActivity.class);
+                //Intent is used to switch from one activity to another.
+
+                startActivity(i);
+                //invoke the SecondActivity.
             }
         });
     }

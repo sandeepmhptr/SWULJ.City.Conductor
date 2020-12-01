@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent" android:orientation="vertical"
+    android:gravity="fill_vertical" android:layout_margin="10dp">
+
+    <EditText
+            android:id="@+id/seat_serial_prefix"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-"
+            android:lines="1"
+            android:hint="Seat Serial Prefix">
+
+    </EditText>
+
+    <EditText
+            android:id="@+id/seat_serial_start_number"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="number"
+            android:lines="1"
+            android:hint="Seat Serial Start Number">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/seat_serial_end_number"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:inputType="number"
+        android:lines="1"
+        android:hint="Seat Serial End Number">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/button_Generate"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Generate" />
+
+</LinearLayout>

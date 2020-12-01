@@ -10,9 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SWULJCityConductor">
         <activity
+            android:name=".GenerateSingleActivity"
+            android:label="@string/title_activity_generate_single"
+            android:theme="@style/Theme.SWULJCityConductor.NoActionBar"></activity>
+        <activity
+            android:name=".GenerateBulkActivity"
+            android:label="@string/title_activity_generate_bulk"
+            android:theme="@style/Theme.SWULJCityConductor.NoActionBar" />
+        <activity
+            android:name=".GenerateQrCodeActivity"
+            android:label="@string/title_activity_generate_qr_code"
+            android:theme="@style/Theme.SWULJCityConductor.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.SWULJCityConductor.NoActionBar"></activity>
+            android:theme="@style/Theme.SWULJCityConductor.NoActionBar" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
