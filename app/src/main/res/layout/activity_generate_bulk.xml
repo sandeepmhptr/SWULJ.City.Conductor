@@ -33,9 +33,17 @@
         android:hint="Seat Serial End Number">
 
     </EditText>
+    <EditText
+        android:id="@+id/test1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:inputType="number"
+        android:lines="1"
+        android:hint="Seat Serial End Number">
 
+    </EditText>
     <Button
-        android:id="@+id/button_Generate"
+        android:id="@+id/button_Generate1"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Generate" />

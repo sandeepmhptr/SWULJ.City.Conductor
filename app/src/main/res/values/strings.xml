@@ -13,4 +13,5 @@
     <string name="title_activity_generate_qr_code">GenerateQrCodeActivity</string>
     <string name="title_activity_generate_bulk">GenerateBulkActivity</string>
     <string name="title_activity_generate_single">GenerateSingleActivity</string>
+    <string name="title_activity_qr_code_result">QrCodeResultActivity</string>
 </resources>

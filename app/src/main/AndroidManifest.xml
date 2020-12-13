@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SWULJCityConductor">
         <activity
+            android:name=".QrCodeResultActivity"
+            android:label="@string/title_activity_qr_code_result"
+            android:theme="@style/Theme.SWULJCityConductor.NoActionBar"></activity>
+        <activity
             android:name=".GenerateSingleActivity"
             android:label="@string/title_activity_generate_single"
-            android:theme="@style/Theme.SWULJCityConductor.NoActionBar"></activity>
+            android:theme="@style/Theme.SWULJCityConductor.NoActionBar" />
         <activity
             android:name=".GenerateBulkActivity"
             android:label="@string/title_activity_generate_bulk"
