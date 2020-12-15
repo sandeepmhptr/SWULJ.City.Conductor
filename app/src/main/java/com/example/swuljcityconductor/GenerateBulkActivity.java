@@ -49,8 +49,9 @@ public class GenerateBulkActivity extends AppCompatActivity {
                 str_seat_serial_start_number = edit_seat_serial_start_number.getText().toString();
                 str_seat_serial_end_number = edit_seat_serial_end_number.getText().toString();
                 if((str_seat_prefix.length()>6)
-                        &&(str_seat_serial_start_number.length()>1)
-                &&(str_seat_serial_end_number.length()>1))
+                        &&(str_seat_serial_start_number.length()>0)
+                &&(str_seat_serial_end_number.length()>0)
+                && Integer.valueOf(str_seat_serial_start_number)<Integer.valueOf(str_seat_serial_end_number))
                 {
                     edit_test1.setText("inside working");
                     Intent i = new Intent(GenerateBulkActivity.this,
