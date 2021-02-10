@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.swuljcityconductor">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SWULJCityConductor">
-
+        <activity android:name=".FaresActivity"></activity>
+        <activity android:name=".StopActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity
             android:name=".QrCodeResultActivity"
             android:label="@string/title_activity_qr_code_result"
-            android:theme="@style/Theme.SWULJCityConductor.NoActionBar"></activity>
-
+            android:theme="@style/Theme.SWULJCityConductor.NoActionBar" />
         <activity
             android:name=".GenerateSingleActivity"
             android:label="@string/title_activity_generate_single"
@@ -39,6 +44,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 </manifest>

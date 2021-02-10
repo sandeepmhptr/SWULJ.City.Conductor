@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical" android:padding="0dp"
+    android:layout_height="wrap_content" android:gravity="fill_vertical" android:layout_margin="0dp">
+
+
+    <TextView
+        android:id="@+id/text_view_id"
+        android:layout_height="wrap_content"
+        android:text="Enter Bus Number:"
+        android:layout_width="wrap_content"
+        android:clickable="false"
+        android:hint="Enter Bus Number:">
+    </TextView>
+
+    <EditText
+        android:id="@+id/bus_number"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Enter Bus Number:">
+    </EditText>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/btn"
+        android:text="Next">
+    </Button>
+
+</LinearLayout>

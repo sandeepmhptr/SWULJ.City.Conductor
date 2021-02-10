@@ -7,6 +7,40 @@
     <FrameLayout android:layout_height="wrap_content"
         android:layout_width="wrap_content" android:orientation="vertical"
         android:gravity="fill_vertical" android:layout_margin="10dp">
+        <FrameLayout android:layout_height="wrap_content"
+            android:layout_width="wrap_content" android:orientation="vertical"
+            android:gravity="fill_vertical" android:layout_margin="10dp">
+
+            <ImageButton
+                android:id="@+id/Register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="Generate Qr Code"
+                android:textStyle="bold"
+                android:layout_alignEnd="@+id/tv_question"
+                android:layout_alignRight="@+id/tv_question"
+                android:background="#00ffffff"
+                android:src="@drawable/bus"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="65dp"
+                android:layout_marginTop="65dp"
+                android:clickable="false"
+                android:text="Register" >
+            </TextView>
+
+        </FrameLayout>
 
         <ImageButton
             android:id="@+id/imageButtonGenerateQrCode"

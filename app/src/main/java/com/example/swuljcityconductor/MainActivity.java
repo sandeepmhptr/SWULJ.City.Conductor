@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton imgButtonGenerateQrCode;
-
+    ImageButton Register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,20 @@ public class MainActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
         imgButtonGenerateQrCode =(ImageButton)findViewById(R.id.imageButtonGenerateQrCode);
+        Register = (ImageButton) findViewById(R.id.Register);
 
+        Register.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(MainActivity.this,
+                        GenerateQrCodeActivity.class);
+                //Intent is used to switch from one activity to another.
+
+                startActivity(i);
+                //invoke the SecondActivity.
+                finish();
+            }
+        });
 
         imgButtonGenerateQrCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(i);
                 //invoke the SecondActivity.
+                finish();
             }
         });
     }

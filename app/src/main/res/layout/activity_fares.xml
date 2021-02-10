@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical" android:padding="0dp"
+    android:layout_height="wrap_content" android:gravity="fill_vertical" android:layout_margin="0dp">
+
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_height="wrap_content"
+        android:text="Enter the fare between the stops:"
+        android:layout_width="wrap_content"
+        android:clickable="false"
+        android:hint="Enter the fare between the stops::">
+    </TextView>
+
+    <TextView
+        android:id="@+id/source_stop"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:clickable="false">
+    </TextView>
+
+    <TextView
+        android:id="@+id/destination_stop"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:clickable="false">
+    </TextView>
+
+    <EditText
+        android:id="@+id/fares_input"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Enter the fare:">
+    </EditText>
+
+    <EditText
+        android:id="@+id/result"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Result:">
+    </EditText>
+
+    <FrameLayout android:layout_height="wrap_content"
+        android:layout_width="wrap_content" android:orientation="horizontal"
+        android:gravity="fill_horizontal" android:layout_margin="10dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/btn_next_fare"
+            android:text="Enter the next fare:">
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/btn_register"
+            android:text="Register bus with server:">
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/btn_skip_registration"
+            android:text="skip Registration">
+        </Button>
+    </FrameLayout>
+
+</LinearLayout>
