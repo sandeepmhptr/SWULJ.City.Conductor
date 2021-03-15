@@ -7,9 +7,7 @@
     <FrameLayout android:layout_height="wrap_content"
         android:layout_width="wrap_content" android:orientation="vertical"
         android:gravity="fill_vertical" android:layout_margin="10dp">
-        <FrameLayout android:layout_height="wrap_content"
-            android:layout_width="wrap_content" android:orientation="vertical"
-            android:gravity="fill_vertical" android:layout_margin="10dp">
+
 
             <ImageButton
                 android:id="@+id/Register"
@@ -41,7 +39,9 @@
             </TextView>
 
         </FrameLayout>
-
+    <FrameLayout android:layout_height="wrap_content"
+        android:layout_width="wrap_content" android:orientation="vertical"
+        android:gravity="fill_vertical" android:layout_margin="10dp">
         <ImageButton
             android:id="@+id/imageButtonGenerateQrCode"
             android:layout_width="wrap_content"

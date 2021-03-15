@@ -42,12 +42,20 @@
         android:hint="Result:">
     </EditText>
 
+    <EditText
+        android:id="@+id/HTTP_response"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="HTTP Response:">
+    </EditText>
+
     <FrameLayout android:layout_height="wrap_content"
         android:layout_width="wrap_content" android:orientation="horizontal"
         android:gravity="fill_horizontal" android:layout_margin="10dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="200dp"
             android:id = "@+id/btn_next_fare"
             android:text="Enter the next fare:">
         </Button>
@@ -55,15 +63,20 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id = "@+id/btn_register"
-            android:text="Register bus with server:">
-        </Button>
 
+            android:id = "@+id/btn_more_bus"
+            android:text="Input More Bus:">
+        </Button>
+    </FrameLayout>
+    <FrameLayout android:layout_height="wrap_content"
+        android:layout_width="wrap_content" android:orientation="horizontal"
+        android:gravity="fill_horizontal" android:layout_margin="10dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id = "@+id/btn_skip_registration"
-            android:text="skip Registration">
+            android:layout_marginRight="100dp"
+            android:id = "@+id/btn_skip_Main_Page"
+            android:text="Skip To Main Page">
         </Button>
     </FrameLayout>
 

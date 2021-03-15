@@ -16,9 +16,11 @@ public class StopActivity extends AppCompatActivity {
     String BUS_NUMBER= "EXTRA_BUS_NUMBER";
     String Param = "PARAM";
     String Stop = "STOP";
+    String res = null;
     String busNumber, Next_stop;
     TextView txt;
     EditText next_stop;
+    EditText result;
     Button btn_next_stop;
     Button btn_done;
     int count_stops = 0;
@@ -34,6 +36,7 @@ public class StopActivity extends AppCompatActivity {
         txt = (TextView) findViewById(R.id.txt);
         btn_next_stop = (Button) findViewById(R.id.btn_next_stop);
         btn_done = (Button) findViewById(R.id.btn_done);
+        result = (EditText) findViewById(R.id.result__);
 
         btn_next_stop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +47,8 @@ public class StopActivity extends AppCompatActivity {
                     count_stops++;
                     list.add(Next_stop);
                     next_stop.setText("");
+                    res += Next_stop;
+                    result.setText(res);
                 }
             }
         });
@@ -51,12 +56,16 @@ public class StopActivity extends AppCompatActivity {
         btn_done.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                res = null;
                 if(list.size() > 2){
                     Intent i = new Intent(StopActivity.this, FaresActivity.class);
                     i.putExtra(BUS_NUMBER, busNumber);
-                    i.putExtra(Param,count_stops);
+                    i.putExtra(Param,String.valueOf(count_stops));
                     for(int j = 1; j <= count_stops; j++){
-                        i.putExtra(Stop+String.valueOf(j), list.get(j-1));
+                        String temp = Stop + String.valueOf(j);
+                        i.putExtra(temp, list.get(j-1));
+                        res+=";";
+                        res += list.get(j-1);
                     }
                     startActivity(i);
                     finish();

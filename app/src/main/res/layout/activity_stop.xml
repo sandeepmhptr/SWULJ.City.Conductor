@@ -20,13 +20,23 @@
         android:layout_width="wrap_content"
         android:hint="Enter Next Stop:">
     </EditText>
-
+    <EditText
+        android:id="@+id/result__"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    </EditText>
+    <EditText
+        android:id="@+id/result___"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    </EditText>
     <FrameLayout android:layout_height="wrap_content"
         android:layout_width="wrap_content" android:orientation="horizontal"
         android:gravity="fill_horizontal" android:layout_margin="10dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
             android:id = "@+id/btn_next_stop"
             android:text="Enter Next Stop:">
         </Button>

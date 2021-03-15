@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(MainActivity.this,
-                        GenerateQrCodeActivity.class);
+                        RegisterActivity.class);
                 //Intent is used to switch from one activity to another.
 
                 startActivity(i);
