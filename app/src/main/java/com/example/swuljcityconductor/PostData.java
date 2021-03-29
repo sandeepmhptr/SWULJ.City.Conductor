@@ -1,5 +1,8 @@
 package com.example.swuljcityconductor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PostData {
     String url;
     String busNumber;
@@ -7,7 +10,8 @@ public class PostData {
     int countPairs;
     String [] Stops;
     String[][] fares;
-    PostData(String urlArg, String  busNumberArg, int countStopsArg, int countPairsArg, String [] stopsArg, String[][] faresArg)
+    List<StopFareData> list = new ArrayList<>();
+    PostData(String urlArg, String  busNumberArg, int countStopsArg, int countPairsArg, String [] stopsArg, List<StopFareData> listArg)
     {
         url = urlArg;
         busNumber = busNumberArg;
@@ -15,9 +19,7 @@ public class PostData {
         countPairs = countPairsArg;
         Stops = stopsArg;
         int c=0;
-        fares = new String [faresArg.length][];
-        for(String[] array:faresArg){
-            fares[c++]=array;
-        }
+        list = listArg;
+
     }
 }

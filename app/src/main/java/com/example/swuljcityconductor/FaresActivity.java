@@ -3,6 +3,7 @@ package com.example.swuljcityconductor;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,11 +54,17 @@ public class FaresActivity extends AppCompatActivity {
     String stackServer = "https://swulj.000webhostapp.com/new.php";
     static final int REQUEST = 112;
     Context mContext = this;
+    FaresFragment myf;
+    Context cntxt = this;
+    FaresActivity obj = this;
+    List<StopFareData> list = new ArrayList<>();
+    StopFareData datum = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fares);
 
+        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         txt = (TextView) findViewById(R.id.txt);
         source_stop = (TextView) findViewById(R.id.source_stop);
         destination_stop = (TextView) findViewById(R.id.destination_stop);
@@ -68,6 +76,7 @@ public class FaresActivity extends AppCompatActivity {
         HTTPResult = (EditText) findViewById(R.id.HTTP_response);
         Skip_To_Main.setVisibility(View.GONE);
         More_Bus.setVisibility(View.GONE);
+
 
         Intent i = getIntent();
 
@@ -93,24 +102,29 @@ public class FaresActivity extends AppCompatActivity {
         NumPairStops *= 2;
         fares = new String[NumPairStops][3];
 
+
         next_fare.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //if(flag){
                     //flag = false;
-                    fares[StopPair] = new String[3];
+                    datum = new StopFareData(Stops[FirstStop], Stops[SecondStop], (String)fare.getText().toString());
+                    list.add(datum);
+                    /*fares[StopPair] = new String[3];
                     fares[StopPair][0] = Stops[FirstStop];
                     fares[StopPair][1] = Stops[SecondStop];
                     fares[StopPair][2] = (String)fare.getText().toString();
-                    StopPair++;
+                    StopPair++;*/
                     source_stop.setText("Source Stop is:" + Stops[SecondStop]);
                     destination_stop.setText("Destination Stop is:" + Stops[FirstStop]);
-                    fares[StopPair] = new String[3];
+                    datum = new StopFareData(Stops[SecondStop], Stops[FirstStop], (String)fare.getText().toString());
+                    list.add(datum);
+                    /*fares[StopPair] = new String[3];
                     fares[StopPair][0] = Stops[SecondStop];
                     fares[StopPair][1] = Stops[FirstStop];
                     fares[StopPair][2] = (String)fare.getText().toString();
-                    StopPair++;
+                    StopPair++;*/
                     SecondStop++;
-                    if(SecondStop == count_stops ){
+                    if((FirstStop != count_stops - 1 ) && (SecondStop == count_stops )){
                         FirstStop++;
                         SecondStop = FirstStop + 1;
                     }
@@ -120,25 +134,13 @@ public class FaresActivity extends AppCompatActivity {
                         More_Bus.setVisibility(View.VISIBLE);
                         Skip_To_Main.setVisibility(View.VISIBLE);
 
+                        myf = new FaresFragment(cntxt, NumPairStops, list, obj);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.add(R.id.frameLayout, myf);
+                        transaction.commit();
 
-                        if (Build.VERSION.SDK_INT >= 23) {
-                            String[] PERMISSIONS = {android.Manifest.permission.INTERNET};
-                            if (!hasPermissions(mContext, PERMISSIONS)) {
-                                ActivityCompat.requestPermissions((Activity) mContext, PERMISSIONS, REQUEST );
 
-                                HTTPConnection1 conn = new HTTPConnection1();
-                                PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, fares);
-                                conn.execute(data);
-                            } else {
-                                HTTPConnection1 conn = new HTTPConnection1();
-                                PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, fares);
-                                conn.execute(data);
-                            }
-                        } else {
-                            HTTPConnection1 conn = new HTTPConnection1();
-                            PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, fares);
-                            conn.execute(data);
-                        }
 
                     }else{
                         fare.setText("");
@@ -152,7 +154,7 @@ public class FaresActivity extends AppCompatActivity {
         More_Bus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String res= "";
+                /*String res= "";
                 for(int i = 0; i < NumPairStops; i++){
                     for(int j = 0; j < 3; j++){
                         res += ";";
@@ -160,7 +162,7 @@ public class FaresActivity extends AppCompatActivity {
                     }
                 }
 
-                result.setText(res);
+                result.setText(res);*/
             }
         });
     }
@@ -172,7 +174,7 @@ public class FaresActivity extends AppCompatActivity {
         int countStops;
         int countPairs;
         String [] Stops;
-        String[][] fares;
+        List<StopFareData> list = new ArrayList<>();
         @Override
         protected String doInBackground(PostData... params) {
             String Pairs = "Pairs";
@@ -184,10 +186,7 @@ public class FaresActivity extends AppCompatActivity {
             countPairs = data.countPairs;
             Stops = data.Stops;
             int c=0;
-            fares = new String [data.fares.length][];
-            for(String[] array:data.fares){
-                fares[c++]=array;
-            }
+            list = data.list;
             //url = params[0];
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(url);
@@ -201,11 +200,11 @@ public class FaresActivity extends AppCompatActivity {
                     nameValuePairs.add(new BasicNameValuePair(stops + String.valueOf(i), Stops[i]));
                 }
 
-                for(int i = 0; i < countPairs; i++)
+                for(int i = 0; i < list.size(); i++)
                 {
-                    nameValuePairs.add(new BasicNameValuePair(Pairs + String.valueOf(i) + "source", fares[i][0]));
-                    nameValuePairs.add(new BasicNameValuePair(Pairs + String.valueOf(i) + "destination", fares[i][1]));
-                    nameValuePairs.add(new BasicNameValuePair(Pairs + String.valueOf(i) + "fare", fares[i][2]));
+                    nameValuePairs.add(new BasicNameValuePair(Pairs + String.valueOf(i) + "source", list.get(i).Source));
+                    nameValuePairs.add(new BasicNameValuePair(Pairs + String.valueOf(i) + "destination", list.get(i).Destination));
+                    nameValuePairs.add(new BasicNameValuePair(Pairs + String.valueOf(i) + "fare", list.get(i).fare));
                 }
 
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -267,6 +266,28 @@ public class FaresActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+    void changeIntent()
+    {
+
+         if (Build.VERSION.SDK_INT >= 23) {
+                            String[] PERMISSIONS = {android.Manifest.permission.INTERNET};
+                            if (!hasPermissions(mContext, PERMISSIONS)) {
+                                ActivityCompat.requestPermissions((Activity) mContext, PERMISSIONS, REQUEST );
+
+                                HTTPConnection1 conn = new HTTPConnection1();
+                                PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, list);
+                                conn.execute(data);
+                            } else {
+                                HTTPConnection1 conn = new HTTPConnection1();
+                                PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, list);
+                                conn.execute(data);
+                            }
+                        } else {
+                            HTTPConnection1 conn = new HTTPConnection1();
+                            PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, list);
+                            conn.execute(data);
+                        }
     }
 }
 
