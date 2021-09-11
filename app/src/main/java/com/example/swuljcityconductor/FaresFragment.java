@@ -87,7 +87,10 @@ public class FaresFragment extends Fragment {
         // add 20 radio buttons to the group
         for (int u = 0; u < count_stops; u++) {
             RadioButton newRadioButton = new RadioButton(cntxt);
-            String label = "fare between stops "+ Stops.get(u).Source + "and " + Stops.get(u).Destination +" = " + Stops.get(u).fare;
+            String s = Stops.get(u).Source;
+            String d = Stops.get(u).Destination;
+            String f = Stops.get(u).fare;
+            String label = "fare between stops "+ s + "and " + d +" = " + f;
             newRadioButton.setText(label);
             newRadioButton.setId(u);
             radiogroup.addView(newRadioButton, layoutParams);

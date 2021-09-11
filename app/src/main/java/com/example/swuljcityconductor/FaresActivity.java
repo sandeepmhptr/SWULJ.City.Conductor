@@ -37,18 +37,21 @@ import java.util.List;
 
 public class FaresActivity extends AppCompatActivity {
     String BUS_NUMBER= "EXTRA_BUS_NUMBER";
-    String Param = "PARAM";
-    String Stop = "STOP";
-    int count_stops = 0;
-    int NumPairStops = 0;
+    String Param1 = "PARAM_ON_DIRECTION";
+    String Stop1 = "STOP_ON_DIRECTION";
+    String Param2 = "PARAM_RETURN_DIRECTION";
+    String Stop2 = "STOP_RETURN_DIRECTION";
+
+    int count_stops1 = 0, count_stops2 = 0;
+    int NumPairStops1 = 0, NumPairStops2 = 0;
     int StopPair =0;
     String busNumber;
-    String temp3 = null;
-    String [] Stops;
+    String temp3 = null, temp4 = null;
+    String [] Stops1, Stops2;
     String[][] fares;
     int FirstStop =0, SecondStop=1;
     TextView txt, source_stop, destination_stop;
-    EditText fare, result, HTTPResult;
+    EditText fare, result1, result2, HTTPResult;
     Button next_fare, More_Bus, Skip_To_Main;
     boolean flag = true;
     String stackServer = "https://swulj.000webhostapp.com/new.php";
@@ -59,6 +62,7 @@ public class FaresActivity extends AppCompatActivity {
     FaresActivity obj = this;
     List<StopFareData> list = new ArrayList<>();
     StopFareData datum = null;
+    boolean stopFlag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +76,8 @@ public class FaresActivity extends AppCompatActivity {
         next_fare = (Button) findViewById(R.id.btn_next_fare);
         More_Bus = (Button) findViewById(R.id.btn_more_bus);
         Skip_To_Main = findViewById(R.id.btn_skip_Main_Page);
-        result = (EditText) findViewById(R.id.result);
+        result1 = (EditText) findViewById(R.id.result1);
+        result2 = (EditText) findViewById(R.id.result2);
         HTTPResult = (EditText) findViewById(R.id.HTTP_response);
         Skip_To_Main.setVisibility(View.GONE);
         More_Bus.setVisibility(View.GONE);
@@ -81,74 +86,103 @@ public class FaresActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         busNumber = i.getStringExtra(BUS_NUMBER);
-        String temp = i.getStringExtra(Param);
-        count_stops = Integer.valueOf(temp);
+        String temp = i.getStringExtra(Param1);
+        count_stops1 = Integer.valueOf(temp);
+        temp = i.getStringExtra(Param2);
+        count_stops2 = Integer.valueOf(temp);
 
-        Stops = new String[count_stops];
+        Stops1 = new String[count_stops1];
+        Stops2 = new String[count_stops2];
 
-        for(int x = 1; x <= count_stops; x++){
-            String temp2 = Stop + String.valueOf(x);
-            Stops[x-1] = i.getStringExtra(temp2);
+        for(int x = 1; x <= count_stops1; x++){
+            String temp2 = Stop1 + String.valueOf(x);
+            Stops1[x-1] = i.getStringExtra(temp2);
+
             temp3 += ";";
-            temp3 += Stops[x-1];
+            temp3 += Stops1[x-1];
         }
-        result.setText(temp3);
-        source_stop.setText("Source Stop is:" + Stops[FirstStop]);
-        destination_stop.setText("Destination Stop is:" + Stops[SecondStop]);
+        result1.setText(temp3);
 
-        for(int x = count_stops - 1; x > 0; x--){
-            NumPairStops += x;
+        for(int x = 1; x <= count_stops2; x++){
+            String temp2 = Stop2 + String.valueOf(x);
+            Stops2[x-1] = i.getStringExtra(temp2);
+            temp4 += ";";
+            temp4 += Stops2[x-1];
+
         }
-        NumPairStops *= 2;
-        fares = new String[NumPairStops][3];
+        //result2.setText(String.valueOf(count_stops2));
+        result2.setText(temp4);
+
+        source_stop.setText("Source Stop is:" + Stops1[FirstStop]);
+        destination_stop.setText("Destination Stop is:" + Stops1[SecondStop]);
+
+        for(int x = count_stops1 - 1; x > 0; x--){
+            NumPairStops1 += x;
+        }
+        //NumPairStops1 *= 2;
+
+        for(int x = count_stops2 - 1; x > 0; x--){
+            NumPairStops2 += x;
+        }
+        //NumPairStops2 *= 2;
+
+        fares = new String[NumPairStops1 + NumPairStops2][3];
 
 
         next_fare.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                //if(flag){
-                    //flag = false;
-                    datum = new StopFareData(Stops[FirstStop], Stops[SecondStop], (String)fare.getText().toString());
+            public void onClick(View v) {
+                if (!stopFlag) {
+                    datum = new StopFareData(Stops1[FirstStop], Stops1[SecondStop], (String) fare.getText().toString());
                     list.add(datum);
-                    /*fares[StopPair] = new String[3];
-                    fares[StopPair][0] = Stops[FirstStop];
-                    fares[StopPair][1] = Stops[SecondStop];
-                    fares[StopPair][2] = (String)fare.getText().toString();
-                    StopPair++;*/
-                    source_stop.setText("Source Stop is:" + Stops[SecondStop]);
-                    destination_stop.setText("Destination Stop is:" + Stops[FirstStop]);
-                    datum = new StopFareData(Stops[SecondStop], Stops[FirstStop], (String)fare.getText().toString());
-                    list.add(datum);
-                    /*fares[StopPair] = new String[3];
-                    fares[StopPair][0] = Stops[SecondStop];
-                    fares[StopPair][1] = Stops[FirstStop];
-                    fares[StopPair][2] = (String)fare.getText().toString();
-                    StopPair++;*/
                     SecondStop++;
-                    if((FirstStop != count_stops - 1 ) && (SecondStop == count_stops )){
+                    if ((FirstStop != count_stops1 - 1) && (SecondStop == count_stops1)) {
                         FirstStop++;
                         SecondStop = FirstStop + 1;
                     }
-                    if(FirstStop == count_stops - 1 ){
+                    if (FirstStop == count_stops1 - 1) {
+                        FirstStop = 0;
+                        SecondStop = 0;
+                        stopFlag = true;
+                        fare.setText("");
+                        source_stop.setText("Source Stop is:" + Stops2[FirstStop]);
+                        destination_stop.setText("Destination Stop is:" + Stops2[SecondStop + 1]);
+                    } else {
+                        fare.setText("");
+                        //fare.setText("FirstStop =" + String.valueOf(FirstStop)+"; count_stops ="+ String.valueOf(count_stops));
+                        source_stop.setText("Source Stop is:" + Stops1[FirstStop]);
+                        destination_stop.setText("Destination Stop is:" + Stops1[SecondStop]);
+                    }
+                }
+                else{
+                    SecondStop++;
+                    datum = new StopFareData(Stops2[FirstStop], Stops2[SecondStop], (String) fare.getText().toString());
+                    list.add(datum);
+
+                    if ((FirstStop != count_stops1 - 1) && (SecondStop == count_stops1 - 1)) {
+                        FirstStop++;
+                        SecondStop = FirstStop ;
+                    }
+                    if (FirstStop == count_stops1 - 1) {
+
                         //hide button
                         next_fare.setVisibility(View.GONE);
                         More_Bus.setVisibility(View.VISIBLE);
                         Skip_To_Main.setVisibility(View.VISIBLE);
 
-                        myf = new FaresFragment(cntxt, NumPairStops, list, obj);
+                        myf = new FaresFragment(cntxt, NumPairStops1 + NumPairStops2 , list, obj);
                         frameLayout.setVisibility(View.VISIBLE);
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.add(R.id.frameLayout, myf);
                         transaction.commit();
 
-
-
-                    }else{
+                    } else {
                         fare.setText("");
                         //fare.setText("FirstStop =" + String.valueOf(FirstStop)+"; count_stops ="+ String.valueOf(count_stops));
-                        source_stop.setText("Source Stop is:" + Stops[FirstStop]);
-                        destination_stop.setText("Destination Stop is:" + Stops[SecondStop]);
+                        source_stop.setText("Source Stop is:" + Stops2[FirstStop]);
+                        destination_stop.setText("Destination Stop is:" + Stops2[SecondStop + 1]);
                     }
                 }
+            }
         });
 
         More_Bus.setOnClickListener(new View.OnClickListener(){
@@ -171,33 +205,41 @@ public class FaresActivity extends AppCompatActivity {
         String result;
         String url;
         String busNumber;
-        int countStops;
+        int countStops1, countStops2;
         int countPairs;
-        String [] Stops;
+        String [] Stops1, Stops2;
         List<StopFareData> list = new ArrayList<>();
         @Override
         protected String doInBackground(PostData... params) {
             String Pairs = "Pairs";
-            String stops = "Stops";
+            String stops1 = "Stops1";
+            String stops2 = "StopsReturn";
             data = params[0];
             url = data.url;
             busNumber = data.busNumber;
-            countStops = data.countStops;
+            countStops1 = data.countStops1;
+            countStops2 = data.countStops2;
             countPairs = data.countPairs;
-            Stops = data.Stops;
+            Stops1 = data.Stops1;
+            Stops2 = data.Stops2;
             int c=0;
             list = data.list;
             //url = params[0];
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(url);
             try {
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3 + countStops + countPairs);
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3 + countStops1+ count_stops2 + countPairs);
                 nameValuePairs.add(new BasicNameValuePair("busNumber", busNumber));
-                nameValuePairs.add(new BasicNameValuePair("countStops", String.valueOf(countStops)));
+                nameValuePairs.add(new BasicNameValuePair("countStops1", String.valueOf(countStops1)));
+                nameValuePairs.add(new BasicNameValuePair("countStops2", String.valueOf(countStops2)));
                 nameValuePairs.add(new BasicNameValuePair("countPairs", String.valueOf(countPairs)));
-                for(int i = 0; i < countStops; i++)
+                for(int i = 0; i < countStops1; i++)
                 {
-                    nameValuePairs.add(new BasicNameValuePair(stops + String.valueOf(i), Stops[i]));
+                    nameValuePairs.add(new BasicNameValuePair(stops1 + String.valueOf(i), Stops1[i]));
+                }
+                for(int i = 0; i < countStops2; i++)
+                {
+                    nameValuePairs.add(new BasicNameValuePair(stops2 + String.valueOf(i), Stops1[i]));
                 }
 
                 for(int i = 0; i < list.size(); i++)
@@ -271,23 +313,22 @@ public class FaresActivity extends AppCompatActivity {
     {
 
          if (Build.VERSION.SDK_INT >= 23) {
-                            String[] PERMISSIONS = {android.Manifest.permission.INTERNET};
-                            if (!hasPermissions(mContext, PERMISSIONS)) {
-                                ActivityCompat.requestPermissions((Activity) mContext, PERMISSIONS, REQUEST );
-
-                                HTTPConnection1 conn = new HTTPConnection1();
-                                PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, list);
-                                conn.execute(data);
-                            } else {
-                                HTTPConnection1 conn = new HTTPConnection1();
-                                PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, list);
-                                conn.execute(data);
-                            }
-                        } else {
-                            HTTPConnection1 conn = new HTTPConnection1();
-                            PostData data = new PostData(stackServer, busNumber, count_stops, NumPairStops, Stops, list);
-                            conn.execute(data);
-                        }
+             String[] PERMISSIONS = {android.Manifest.permission.INTERNET};
+             if (!hasPermissions(mContext, PERMISSIONS)) {
+                ActivityCompat.requestPermissions((Activity) mContext, PERMISSIONS, REQUEST );
+                HTTPConnection1 conn = new HTTPConnection1();
+                PostData data = new PostData(stackServer, busNumber, count_stops1, count_stops2, Stops1, Stops2, NumPairStops1 + NumPairStops2, list);
+                conn.execute(data);
+             } else {
+                 HTTPConnection1 conn = new HTTPConnection1();
+                 PostData data = new PostData(stackServer, busNumber, count_stops1, count_stops2, Stops1, Stops2, NumPairStops1 + NumPairStops2, list);
+                 conn.execute(data);
+             }
+         } else {
+             HTTPConnection1 conn = new HTTPConnection1();
+             PostData data = new PostData(stackServer, busNumber, count_stops1, count_stops2, Stops1, Stops2, NumPairStops1 + NumPairStops2, list);
+             conn.execute(data);
+         }
     }
 }
 

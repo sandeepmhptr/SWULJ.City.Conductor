@@ -44,10 +44,17 @@
             </EditText>
 
             <EditText
-                android:id="@+id/result"
+                android:id="@+id/result1"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:hint="Result:">
+                android:hint="Result1:">
+            </EditText>
+
+            <EditText
+                android:id="@+id/result2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="Result2:">
             </EditText>
 
             <EditText

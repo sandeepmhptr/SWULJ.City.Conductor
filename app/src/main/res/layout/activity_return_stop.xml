@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical" android:padding="0dp"
+    android:layout_height="wrap_content" android:gravity="fill_vertical" android:layout_margin="0dp">
+
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_height="wrap_content"
+        android:text="Enter Next Stop:"
+        android:layout_width="wrap_content"
+        android:clickable="false"
+        android:hint="Enter Next Stop:">
+    </TextView>
+    <EditText
+        android:id="@+id/result1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Result1:">
+    </EditText>
+
+    <EditText
+        android:id="@+id/result2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Result2:">
+    </EditText>
+
+    <EditText
+        android:id="@+id/next_stop"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Enter Next Stop:">
+    </EditText>
+    <EditText
+        android:id="@+id/result__"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    </EditText>
+    <EditText
+        android:id="@+id/result___"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    </EditText>
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:visibility="gone" >
+
+    </FrameLayout>
+    <FrameLayout android:layout_height="wrap_content"
+        android:layout_width="wrap_content" android:orientation="horizontal"
+        android:gravity="fill_horizontal" android:layout_margin="10dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:id = "@+id/btn_next_stop"
+            android:text="Enter Next Stop:">
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/btn_done"
+            android:text="Done">
+        </Button>
+    </FrameLayout>
+
+</LinearLayout>
